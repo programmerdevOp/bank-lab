@@ -68,4 +68,12 @@ public class CustomerServiceImpl implements CustomerService{
         return customerToUpdate;
     }
 
+    @Override
+    public void deleteCustomer(Long customerId) {
+        Customer customerToDelete = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        customerRepository.delete(customerToDelete);
+    }
+
 }
