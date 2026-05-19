@@ -45,4 +45,27 @@ public class CustomerServiceImpl implements CustomerService{
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @Override
+    public Customer updateCustomer(Customer customer, Long customerId) {
+        Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
+
+//        if(optionalCustomer.isPresent()){
+//           Customer existingCustomer = optionalCustomer.get();
+//
+//        }
+
+        Customer customerToUpdate = optionalCustomer.orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
+        );
+
+        customerToUpdate.setId(customer.getId());
+        customerToUpdate.setFirstName(customer.getFirstName());
+        customerToUpdate.setLastName(customer.getLastName());
+        customerToUpdate.setEmail(customerToUpdate.getEmail());
+        customerToUpdate.setPhoneNumber(customer.getPhoneNumber());
+
+        customerRepository.save(customerToUpdate);
+        return customerToUpdate;
+    }
+
 }

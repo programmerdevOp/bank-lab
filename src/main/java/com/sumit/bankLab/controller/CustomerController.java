@@ -30,10 +30,17 @@ public class CustomerController {
        List<Customer> customerList = customerService.getAllCustomer();
        return new ResponseEntity<>(customerList, HttpStatus.OK);
     }
-    
+
     @GetMapping("/public/customer/{customerId}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Long customerId){
         Customer customer = customerService.getCustomerById(customerId);
         return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    @PutMapping("/public/customer/{customerId}")
+    public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer,
+                                                   @PathVariable Long customerId){
+        Customer updatedCustomer = customerService.updateCustomer(customer, customerId);
+        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
 }
